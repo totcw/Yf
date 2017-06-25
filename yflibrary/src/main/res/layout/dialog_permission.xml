@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_marginBottom="36dp"
+    android:layout_marginLeft="72dp"
+    android:layout_marginRight="72dp"
+    android:layout_marginTop="36dp"
+    android:background="@drawable/shape_bottom_top_line"
+    android:gravity="center"
+    android:minHeight="100dp"
+    android:minWidth="260dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        >
+
+        <TextView
+
+            android:background="@color/bg_blue"
+            android:id="@+id/tv_dialog_permission_title"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:text="开启权限"
+            android:textColor="#ffffff"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_dialog_permission_title"
+            android:id="@+id/tv_dialog_permission_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="为了您能正常使用免费全本小说,需要以下权限"
+            android:textColor="@color/shouye_lv_tv"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_dialog_permission_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_dialog_permission_message"
+            android:text="位置信息,存储空间"
+            android:textColor="@color/shouye_renmen_tv"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/lv_divider"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_dialog_permission_quxiao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="取消"
+            android:textColor="@color/bg_blue"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/lv_divider"></View>
+
+        <Button
+            android:id="@+id/btn_dialog_permission_comfrim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="确定"
+            android:textColor="@color/bg_blue"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

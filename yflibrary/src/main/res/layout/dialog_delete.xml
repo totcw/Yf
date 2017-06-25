@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+
+    android:layout_marginLeft="72dp"
+    android:layout_marginRight="72dp"
+    android:layout_marginTop="36dp"
+    android:layout_marginBottom="36dp"
+    android:minHeight="100dp"
+    android:minWidth="260dp"
+    android:gravity="center"
+    android:background="@drawable/shape_bottom_top_line"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_dialog_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ff0000"
+            android:textSize="12sp"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#dad9e2"
+        ></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_dialog_delete_quxiao"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="取消"
+            android:textSize="16sp"
+            android:textColor="#ff0694f5"
+            />
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#dad9e2"
+            ></View>
+        <Button
+            android:id="@+id/btn_dialog_delete_comfrim"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="确定"
+            android:textSize="16sp"
+            android:textColor="#ff0694f5"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
