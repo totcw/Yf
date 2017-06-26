@@ -38,7 +38,7 @@
             android:id="@+id/tv_dialog_permission_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="为了您能正常使用免费全本小说,需要以下权限"
+            android:text="为了您能正常使用该应用,需要以下权限"
             android:textColor="@color/shouye_lv_tv"
             android:textSize="10sp" />
 
