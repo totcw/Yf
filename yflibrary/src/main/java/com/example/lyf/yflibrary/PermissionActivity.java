@@ -33,36 +33,19 @@ public class PermissionActivity extends Activity {
             REQUEST_PERMISSIONS = intent.getStringArrayExtra("permission");
         }
         if (REQUEST_PERMISSIONS != null) {
-            checkPermiss();
+            getPermissionName();
+            requestPermission(REQUEST_PERMISSIONS);
+        } else {
+            finish();
+            if (Permission.mPermissionResult != null) {
+
+                Permission.mPermissionResult.fail();
+            }
+
         }
     }
 
 
-    /**
-     * 请求权限
-     */
-    private void checkPermiss() {
-        PermissionUtil.checkPermission(this, REQUEST_PERMISSIONS, new PermissionUtil.permissionInterface() {
-            @Override
-            public void success() {
-                //TODO 请求成功
-                if (Permission.mPermissionResult != null) {
-
-                    Permission.mPermissionResult.done();
-                }
-                finish();
-            }
-
-            @Override
-            public void fail(final List<String> permissions) {
-
-                getPermissionName();
-                requestPermission(permissions.toArray(new String[permissions.size()]));
-
-
-            }
-        });
-    }
 
 
     /**
@@ -87,6 +70,10 @@ public class PermissionActivity extends Activity {
             @Override
             public void cancel() {
                 PermissionActivity.this.finish();
+                if (Permission.mPermissionResult != null) {
+                    Permission.mPermissionResult.fail();
+                }
+
             }
         });
 
@@ -123,6 +110,10 @@ public class PermissionActivity extends Activity {
             @Override
             public void cancel() {
                 PermissionActivity.this.finish();
+                if (Permission.mPermissionResult != null) {
+                    Permission.mPermissionResult.fail();
+                }
+
             }
         });
 
@@ -152,6 +143,10 @@ public class PermissionActivity extends Activity {
             @Override
             public void cancel() {
                 PermissionActivity.this.finish();
+                if (Permission.mPermissionResult != null) {
+                    Permission.mPermissionResult.fail();
+                }
+
             }
         });
 
@@ -173,11 +168,12 @@ public class PermissionActivity extends Activity {
         if (requestCode == REQUEST_PERMISSION_CODE_TAKE_PIC) {
             if (PermissionUtil.verifyPermissions(grantResults)) {//有权限
                 //TODO 有权限
+                finish();
                 if (Permission.mPermissionResult != null) {
 
-                    Permission.mPermissionResult.done();
+                    Permission.mPermissionResult.success();
                 }
-                finish();
+
             } else {
                 //没有权限
                 if (!PermissionUtil.shouldShowPermissions(this, permissions)) {//这个返回false 表示勾选了不再提示
@@ -200,6 +196,11 @@ public class PermissionActivity extends Activity {
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            finish();
+            if (Permission.mPermissionResult != null) {
+
+                Permission.mPermissionResult.fail();
+            }
         }
     }
 
@@ -210,7 +211,13 @@ public class PermissionActivity extends Activity {
 
         //如果是从设置界面返回,就继续判断权限
         if (requestCode == REQUEST_PERMISSION_SEETING) {
-            checkPermiss();
+            requestPermission(REQUEST_PERMISSIONS);
+        } else {
+            finish();
+            if (Permission.mPermissionResult != null) {
+
+                Permission.mPermissionResult.fail();
+            }
         }
 
     }
@@ -230,7 +237,7 @@ public class PermissionActivity extends Activity {
             map.put("com.android.voicemail.permission.ADD_VOICEMAIL", "ADD_VOICEMAIL");
             map.put("android.permission.READ_CALENDAR", "读取日历");
             map.put("android.permission.WRITE_CALENDAR", "修改日历");
-            map.put("android.permission.CAMERA", "拍照权限");
+            map.put("android.permission.CAMERA", "拍照");
             map.put("android.permission.BODY_SENSORS", "传感器");
             map.put("android.permission.ACCESS_FINE_LOCATION", "获取精确位置");
             map.put("android.permission.ACCESS_COARSE_LOCATION", "获取粗略位置");

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import java.io.ObjectStreamException;
 import java.util.List;
 
 /**
@@ -28,10 +27,29 @@ public class Permission {
     public static  PermissionResult mPermissionResult;
 
 
-    public static void checkPermisson(Context context,String[] permissions, PermissionResult permissionResult) {
+    public static void checkPermisson(final Context context,  String[] permissions, PermissionResult permissionResult) {
         mPermissionResult = permissionResult;
-        Intent intent = new Intent(context, PermissionActivity.class);
-        intent.putExtra("permission", permissions);
-        context.startActivity(intent);
+
+        PermissionUtil.checkPermission((Activity) context, permissions, new PermissionUtil.permissionInterface() {
+            @Override
+            public void success() {
+                //TODO 请求成功
+                if (Permission.mPermissionResult != null) {
+
+                    Permission.mPermissionResult.success();
+                }
+
+            }
+
+            @Override
+            public void fail(final List<String> permission) {
+
+                Intent intent = new Intent(context, PermissionActivity.class);
+                intent.putExtra("permission", permission.toArray(new String[permission.size()]));
+                context.startActivity(intent);
+            }
+        });
+
+
     }
 }

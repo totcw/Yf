@@ -18,5 +18,6 @@ package com.example.lyf.yflibrary;
 
 public interface PermissionResult {
 
-    void done();
+    void success();
+    void fail();
 }
