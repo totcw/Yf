@@ -30,18 +30,9 @@ public class DeleteDialog {
         mDialog = new Dialog(mContext, R.style.custom_dialog2);
 
         mDialogContentView= LayoutInflater.from(mContext).inflate(R.layout.dialog_delete,null);
-        Button btn_quxiao = (Button) mDialogContentView.findViewById(R.id.btn_dialog_delete_quxiao);
         Button btn_comfirm = (Button) mDialogContentView.findViewById(R.id.btn_dialog_delete_comfrim);
         tv_content = (TextView) mDialogContentView.findViewById(R.id.tv_dialog_delete);
-        btn_quxiao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                if (null != listener) {
-                    listener.cancel();
-                }
-            }
-        });
+
 
         btn_comfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +60,6 @@ public class DeleteDialog {
     public interface onConfirmListener{
         void comfirm();
 
-        void cancel();
     }
 
     public void setTvcontent(String content) {

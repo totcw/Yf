@@ -22,19 +22,20 @@ public class PermissionActivity extends Activity {
     private HashMap<String, String> map;//管理权限的map
     private static final int REQUEST_PERMISSION_CODE_TAKE_PIC = 9; //权限的请求码
     private static final int REQUEST_PERMISSION_SEETING = 8; //去设置界面的请求码
-    private PermissionDialog permissionDialog;//权限请求对话框
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Intent intent = getIntent();
         if (intent != null) {
             REQUEST_PERMISSIONS = intent.getStringArrayExtra("permission");
         }
+
         if (REQUEST_PERMISSIONS != null) {
-            getPermissionName();
-            requestPermission(REQUEST_PERMISSIONS);
+            checkPermiss();
         } else {
             finish();
             if (Permission.mPermissionResult != null) {
@@ -55,32 +56,24 @@ public class PermissionActivity extends Activity {
      */
     private void requestPermission(final String[] permissions) {
 
-        if (permissionDialog != null) {
-            permissionDialog.dismiss();
-        }
 
-        //请求权限
-        permissionDialog = new PermissionDialog(PermissionActivity.this, new PermissionDialog.onConfirmListener() {
-            @Override
-            public void comfirm() {
-                //请求权限
-                PermissionUtil.requestContactsPermissions(PermissionActivity.this, permissions, REQUEST_PERMISSION_CODE_TAKE_PIC);
-            }
-
-            @Override
-            public void cancel() {
-                PermissionActivity.this.finish();
-                if (Permission.mPermissionResult != null) {
-                    Permission.mPermissionResult.fail();
+            //请求权限
+        PermissionDialog  permissionDialog = new PermissionDialog(PermissionActivity.this, new PermissionDialog.onConfirmListener() {
+                @Override
+                public void comfirm() {
+                    //请求权限  将已经开启的权限 在点拒绝 会杀死当前进程和在设置界面关闭一样
+                    PermissionUtil.requestContactsPermissions(PermissionActivity.this, permissions, REQUEST_PERMISSION_CODE_TAKE_PIC);
                 }
 
-            }
-        });
+
+            });
+
 
         StringBuilder sb = new StringBuilder();
         for (String permission : permissions) {
             if (map != null) {
                 String s = map.get(permission);
+                System.out.println("sss:"+s);
                 if (!TextUtils.isEmpty(s)) {
                     sb.append(s + " ");
                 }
@@ -88,6 +81,7 @@ public class PermissionActivity extends Activity {
         }
 
         permissionDialog.setTvcontent(sb.toString());
+
         permissionDialog.show();
 
     }
@@ -107,14 +101,6 @@ public class PermissionActivity extends Activity {
                 PermissionUtil.requestContactsPermissions(PermissionActivity.this, deniedPermissions.toArray(new String[deniedPermissions.size()]), REQUEST_PERMISSION_CODE_TAKE_PIC);
             }
 
-            @Override
-            public void cancel() {
-                PermissionActivity.this.finish();
-                if (Permission.mPermissionResult != null) {
-                    Permission.mPermissionResult.fail();
-                }
-
-            }
         });
 
         StringBuilder sb = new StringBuilder();
@@ -140,14 +126,7 @@ public class PermissionActivity extends Activity {
                 startActivityForResult(intent, REQUEST_PERMISSION_SEETING);
             }
 
-            @Override
-            public void cancel() {
-                PermissionActivity.this.finish();
-                if (Permission.mPermissionResult != null) {
-                    Permission.mPermissionResult.fail();
-                }
 
-            }
         });
 
 
@@ -181,6 +160,7 @@ public class PermissionActivity extends Activity {
                     startToSetting();
 
                 } else {
+
                     //表示没有权限 ,但是没勾选不再提示
                     for (String s : permissions) {
                         if (!ActivityCompat.shouldShowRequestPermissionRationale(PermissionActivity.this,
@@ -211,7 +191,7 @@ public class PermissionActivity extends Activity {
 
         //如果是从设置界面返回,就继续判断权限
         if (requestCode == REQUEST_PERMISSION_SEETING) {
-            requestPermission(REQUEST_PERMISSIONS);
+                checkPermiss();
         } else {
             finish();
             if (Permission.mPermissionResult != null) {
@@ -222,8 +202,40 @@ public class PermissionActivity extends Activity {
 
     }
 
+
+    /**
+     * 请求权限
+     */
+    private void checkPermiss() {
+        System.out.println("size:"+REQUEST_PERMISSIONS.length);
+        PermissionUtil.checkPermission(this,  REQUEST_PERMISSIONS, new PermissionUtil.permissionInterface() {
+            @Override
+            public void success() {
+                //请求成功
+                finish();
+                if (Permission.mPermissionResult != null) {
+
+                    Permission.mPermissionResult.success();
+                }
+            }
+
+            @Override
+            public void fail(final List<String> permissions) {
+                for (String s : permissions) {
+                    System.out.println(s);
+                }
+                getPermissionName();
+                requestPermission(permissions.toArray(new String[permissions.size()]));
+
+
+            }
+        });
+    }
+
+
+
     public void getPermissionName() {
-        if (map == null) {
+
             map = new HashMap<>();
             map.put("android.permission.WRITE_CONTACTS", "修改联系人");
             map.put("android.permission.GET_ACCOUNTS", "访问账户Gmail列表");
@@ -250,7 +262,7 @@ public class PermissionActivity extends Activity {
             map.put("android.permission.SEND_SMS", "发送短信");
             map.put("android.permission.READ_CELL_BROADCASTS", "READ_CELL_BROADCASTS");
 
-        }
+
 
     }
 

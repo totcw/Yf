@@ -3,6 +3,7 @@
     package="com.example.lyf.yf" >
     <!--危险权限 拍照-->
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

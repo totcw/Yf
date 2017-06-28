@@ -64,20 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btn_dialog_permission_quxiao"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:text="取消"
-            android:textColor="@color/bg_blue"
-            android:textSize="16sp" />
 
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/lv_divider"></View>
 
         <Button
             android:id="@+id/btn_dialog_permission_comfrim"

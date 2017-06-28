@@ -26,7 +26,6 @@ public class Permission {
 
     public static  PermissionResult mPermissionResult;
 
-
     public static void checkPermisson(final Context context,  String[] permissions, PermissionResult permissionResult) {
         mPermissionResult = permissionResult;
 
